@@ -1,22 +1,20 @@
-const puppeteer = require('puppeteer')
-
-
+//const puppeteer = require('puppeteer')
 
 module.exports = function (bot) {
-  const itemFunctions = new bot.infra.itemFunctions()
+  const itemFunctions = new bot.infra.itemFunctions(bot)
 
   bot.on('/createItem', (msg) => {
     console.log('bateu')
-    console.log(itemFunctions.test('aaaaaaa'))
+    itemFunctions.createItem({
+      itemId : 15147,
+      itemName : 'Abusive Robe',
+      itemLink : 'https://www.novaragnarok.com/?module=vending&action=item&id=15147',
+    }, bot)
     
   })
   /*
 
-  itemFuncs.createItem({
-      itemId : 15147,
-      itemName : 'Abusive Robe',
-      itemLink : 'https://www.novaragnarok.com/?module=vending&action=item&id=15147',
-    })
+  itemFuncs.createItem()
 
   let protoDataBase = {}
 

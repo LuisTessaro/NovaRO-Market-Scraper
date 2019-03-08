@@ -1,9 +1,13 @@
-function itemFunctions() { }
+let bot
+let ItemDao
+function itemFunctions(bot) {
+  this.bot = bot
+  ItemDao = new bot.infra.DAO.genericDAO()
+}
 
 const dbName = 'marketScraper'
 const tableName = 'itens'
 
-const ItemDao = require('./DAO/genericDAO')()
 
 itemFunctions.prototype.handleItemExists = (itemId) => {
   return new Promise((resolve, reject) => {
@@ -18,8 +22,6 @@ itemFunctions.prototype.handleItemExists = (itemId) => {
 itemFunctions.prototype.createItem = (item) => {
   ItemDao.create(item, dbName, tableName)
 }
-
-itemFunctions.prototype.test = test => test
 
 
 module.exports = function () {
