@@ -8,6 +8,7 @@ module.exports = function () {
   load({ cwd: 'app' })
     .include('infra')
     .then('routes')
+    .then('services')
     .into(bot)
 
   return bot
