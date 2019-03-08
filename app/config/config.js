@@ -1,4 +1,3 @@
-const puppeteer = require('puppeteer')
 const TeleBot = require('telebot')
 const token = require('./key.json')
 const load = require('consign')
