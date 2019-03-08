@@ -46,10 +46,10 @@ player_dao.prototype.readTable = (dbName, tableName) => {
       if (err) throw err
       const dbo = db.db(dbName)
       dbo.collection(tableName).find({}).toArray((err, result) => {
-        if (err){
+        if (err) {
           reject(err)
           throw err
-        } 
+        }
         resolve(result)
       })
       db.close()
@@ -57,6 +57,23 @@ player_dao.prototype.readTable = (dbName, tableName) => {
   })
 }
 
+player_dao.prototype.readOneByParameter = (param, dbName, tableName) => {
+  return new Promise((resolve, reject) => {
+    MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
+      if (err) throw err
+      const dbo = db.db(dbName)
+      dbo.collection(tableName).find({ param: param }).toArray((err, result) => {
+        if (err) {
+          reject(err)
+          throw err
+        }
+        console.log('Generic readOne Success ' + res)
+        resolve(result)
+        db.close()
+      })
+    })
+  })
+}
 
 module.exports = function () {
   return player_dao
