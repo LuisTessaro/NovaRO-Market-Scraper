@@ -23,7 +23,7 @@ module.exports = function (bot) {
         })
       })
     })
-  }, 60000)
+  }, 3000)
 
   bot.on(/^\/cancel (.+)$/, (msg, props) => {
     const itemId = props.match[1];
