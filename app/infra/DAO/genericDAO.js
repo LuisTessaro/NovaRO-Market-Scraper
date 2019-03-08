@@ -40,6 +40,23 @@ player_dao.prototype.update = (query, newValues, dbName, tableName) => {
   })
 }
 
+player_dao.prototype.readTable = (dbName, tableName) => {
+  return new Promise((resolve, reject) => {
+    MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
+      if (err) throw err
+      const dbo = db.db(dbName)
+      dbo.collection(tableName).find({}).toArray((err, result) => {
+        if (err){
+          reject(err)
+          throw err
+        } 
+        resolve(result)
+      })
+      db.close()
+    })
+  })
+}
+
 
 module.exports = function () {
   return player_dao
