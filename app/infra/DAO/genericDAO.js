@@ -1,9 +1,9 @@
 const MongoClient = require('mongodb').MongoClient
 const url = 'mongodb://localhost:27017/'
 
-function player_dao() { }
+function genericDAO() { }
 
-player_dao.prototype.create = (obj, dbName, tableName) => {
+genericDAO.prototype.create = (obj, dbName, tableName) => {
   MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
     if (err) throw err
     const dbo = db.db(dbName)
@@ -15,7 +15,7 @@ player_dao.prototype.create = (obj, dbName, tableName) => {
   })
 }
 
-player_dao.prototype.deleteByParameter = (name, dbName, tableName) => {
+genericDAO.prototype.deleteByParameter = (name, dbName, tableName) => {
   MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
     if (err) throw err
     const dbo = db.db(dbName)
@@ -28,7 +28,7 @@ player_dao.prototype.deleteByParameter = (name, dbName, tableName) => {
   })
 }
 
-player_dao.prototype.update = (query, newValues, dbName, tableName) => {
+genericDAO.prototype.update = (query, newValues, dbName, tableName) => {
   MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
     if (err) throw err
     const dbo = db.db(dbName)
@@ -40,7 +40,7 @@ player_dao.prototype.update = (query, newValues, dbName, tableName) => {
   })
 }
 
-player_dao.prototype.readTable = (dbName, tableName) => {
+genericDAO.prototype.readTable = (dbName, tableName) => {
   return new Promise((resolve, reject) => {
     MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
       if (err) throw err
@@ -57,7 +57,7 @@ player_dao.prototype.readTable = (dbName, tableName) => {
   })
 }
 
-player_dao.prototype.readOneByParameter = (param, dbName, tableName) => {
+genericDAO.prototype.readOneByParameter = (param, dbName, tableName) => {
   return new Promise((resolve, reject) => {
     MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
       if (err) throw err
@@ -76,5 +76,5 @@ player_dao.prototype.readOneByParameter = (param, dbName, tableName) => {
 }
 
 module.exports = function () {
-  return player_dao
+  return genericDAO
 }

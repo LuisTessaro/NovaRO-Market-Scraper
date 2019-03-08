@@ -6,7 +6,8 @@ module.exports = function () {
   var bot = new TeleBot(token.key)
 
   load({ cwd: 'app' })
-    .include('routes')
+    .include('infra')
+    .then('routes')
     .into(bot)
 
   return bot

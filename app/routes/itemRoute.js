@@ -1,5 +1,23 @@
 const puppeteer = require('puppeteer')
+
+
+
 module.exports = function (bot) {
+  const itemFunctions = new bot.infra.itemFunctions()
+
+  bot.on('/createItem', (msg) => {
+    console.log('bateu')
+    console.log(itemFunctions.test('aaaaaaa'))
+    
+  })
+  /*
+
+  itemFuncs.createItem({
+      itemId : 15147,
+      itemName : 'Abusive Robe',
+      itemLink : 'https://www.novaragnarok.com/?module=vending&action=item&id=15147',
+    })
+
   let protoDataBase = {}
 
   bot.on(['/start', '/hello'], (msg) => {
@@ -118,4 +136,5 @@ module.exports = function (bot) {
       location: location,
     }
   }
+  */
 }
