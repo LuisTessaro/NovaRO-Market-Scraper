@@ -8,7 +8,6 @@ function itemFunctions(bot) {
 const dbName = 'marketScraper'
 const tableName = 'itens'
 
-
 itemFunctions.prototype.handleItemExists = (itemId) => {
   return new Promise((resolve, reject) => {
     ItemDao.readOneByParameter({itemId : itemId}, dbName, tableName)

@@ -3,9 +3,13 @@
 module.exports = function (bot) {
   const itemFunctions = new bot.infra.itemFunctions(bot)
 
-  bot.on(['/start', '/hello'], msg =>
+  bot.on(['/start', '/hello'], msg => 
     msg.reply.text('Favor não tentar quebrar o meu bot, usem à vontade.\n/lowestPrice "id do item"\n/addItem "id do item" "preço minimo pra te avisar"\n/cancel "id do item"')
   )
+
+  bot.on(/^\/addItem (.+)$/, (msg, props) => {
+    
+  })
 
   bot.on('/createItem', (msg) => {
     console.log('bateu')
