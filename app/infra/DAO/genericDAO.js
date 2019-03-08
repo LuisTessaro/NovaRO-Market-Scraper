@@ -28,6 +28,19 @@ player_dao.prototype.deleteByParameter = (name, dbName, tableName) => {
   })
 }
 
+player_dao.prototype.update = (query, newValues, dbName, tableName) => {
+  MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
+    if (err) throw err
+    const dbo = db.db(dbName)
+    dbo.collection(tableName).updateOne(query, newValues, (err, res) => {
+      if (err) throw err
+      console.log('Generic update Success ' + res)
+      db.close()
+    })
+  })
+}
+
+
 module.exports = function () {
   return player_dao
 }
