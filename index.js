@@ -1,6 +1,7 @@
 ﻿const puppeteer = require('puppeteer')
 const TeleBot = require('telebot')
-const bot = new TeleBot('Token-Token')
+const token = require('./key.json')
+const bot = new TeleBot(token.key)
 
 let protoDataBase = {}
 
