@@ -11,7 +11,7 @@ const tableName = 'itens'
 
 itemFunctions.prototype.handleItemExists = (itemId) => {
   return new Promise((resolve, reject) => {
-    ItemDao.readOneByParameter(itemId, dbName, tableName)
+    ItemDao.readOneByParameter({itemId : itemId}, dbName, tableName)
       .then((resp) => {
         if (resp[0]) resolve(resp[0])
         else reject('no item by that id')

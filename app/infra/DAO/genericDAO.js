@@ -7,9 +7,9 @@ genericDAO.prototype.create = (obj, dbName, tableName) => {
   MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
     if (err) throw err
     const dbo = db.db(dbName)
-    dbo.collection(tableName).insertOne(obj, (err, res) => {
+    dbo.collection(tableName).insertOne(obj, (err, result) => {
       if (err) throw err
-      console.log('Generic create Success ' + res)
+      console.log('Generic create Success')
       db.close()
     })
   })
@@ -20,9 +20,9 @@ genericDAO.prototype.deleteByParameter = (name, dbName, tableName) => {
     if (err) throw err
     const dbo = db.db(dbName)
     const myquery = { name: name }
-    dbo.collection(tableName).deleteOne(myquery, (err, res) => {
+    dbo.collection(tableName).deleteOne(myquery, (err, result) => {
       if (err) throw err
-      console.log('Generic delete Success ' + res)
+      console.log('Generic delete Success')
       db.close()
     })
   })
@@ -32,9 +32,9 @@ genericDAO.prototype.update = (query, newValues, dbName, tableName) => {
   MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
     if (err) throw err
     const dbo = db.db(dbName)
-    dbo.collection(tableName).updateOne(query, newValues, (err, res) => {
+    dbo.collection(tableName).updateOne(query, newValues, (err, result) => {
       if (err) throw err
-      console.log('Generic update Success ' + res)
+      console.log('Generic update Success')
       db.close()
     })
   })
@@ -57,17 +57,17 @@ genericDAO.prototype.readTable = (dbName, tableName) => {
   })
 }
 
-genericDAO.prototype.readOneByParameter = (param, dbName, tableName) => {
+genericDAO.prototype.readOneByParameter = (query, dbName, tableName) => {
   return new Promise((resolve, reject) => {
     MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
       if (err) throw err
       const dbo = db.db(dbName)
-      dbo.collection(tableName).find({ param: param }).toArray((err, result) => {
+      dbo.collection(tableName).find(query).toArray((err, result) => {
         if (err) {
           reject(err)
           throw err
         }
-        console.log('Generic readOne Success ' + res)
+        console.log('Generic readOne Success')
         resolve(result)
         db.close()
       })

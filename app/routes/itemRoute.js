@@ -3,24 +3,23 @@
 module.exports = function (bot) {
   const itemFunctions = new bot.infra.itemFunctions(bot)
 
+  bot.on(['/start', '/hello'], (msg) => {
+    msg.reply.text('Favor não tentar quebrar o meu bot, usem à vontade.\n/lowestPrice "id do item"\n/addItem "id do item" "preço minimo pra te avisar"\n/cancel "id do item"')
+  })
+
   bot.on('/createItem', (msg) => {
     console.log('bateu')
-    itemFunctions.createItem({
-      itemId : 15147,
-      itemName : 'Abusive Robe',
-      itemLink : 'https://www.novaragnarok.com/?module=vending&action=item&id=15147',
-    }, bot)
-    
+    itemFunctions.handleItemExists(15147)
+      .then(item => {
+        bot.sendMessage(msg.from.id, item.itemName + ' já existe')
+      })
   })
   /*
 
   itemFuncs.createItem()
 
   let protoDataBase = {}
-
-  bot.on(['/start', '/hello'], (msg) => {
-    msg.reply.text('Favor não tentar quebrar o meu bot, usem à vontade.\n/lowestPrice "id do item"\n/addItem "id do item" "preço minimo pra te avisar"\n/cancel "id do item"')
-  })
+  
 
   setInterval(function () {
     Object.keys(protoDataBase).forEach((key) => {
