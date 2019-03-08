@@ -15,12 +15,11 @@ genericDAO.prototype.create = (obj, dbName, tableName) => {
   })
 }
 
-genericDAO.prototype.deleteByParameter = (name, dbName, tableName) => {
+genericDAO.prototype.deleteByParameter = (query, dbName, tableName) => {
   MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
     if (err) throw err
     const dbo = db.db(dbName)
-    const myquery = { name: name }
-    dbo.collection(tableName).deleteOne(myquery, (err, result) => {
+    dbo.collection(tableName).deleteOne(query, (err, result) => {
       if (err) throw err
       console.log('Generic delete Success')
       db.close()

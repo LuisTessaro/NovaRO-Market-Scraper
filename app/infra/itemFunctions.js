@@ -19,8 +19,12 @@ itemFunctions.prototype.handleItemExists = (itemId) => {
   })
 }
 
-itemFunctions.prototype.createItem = (item) => {
+itemFunctions.prototype.createItem = item => {
   ItemDao.create(item, dbName, tableName)
+}
+
+itemFunctions.prototype.deleteItem = itemId => {
+  ItemDao.deleteByParameter({itemId : itemId}, dbName, tableName)
 }
 
 
