@@ -7,7 +7,7 @@ genericDAO.prototype.create = (obj, dbName, tableName) => {
   MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
     if (err) throw err
     const dbo = db.db(dbName)
-    dbo.collection(tableName).insertOne(obj, (err, result) => {
+    dbo.collection(tableName).insertOne(obj, (err, _) => {
       if (err) throw err
       console.log('Generic create Success')
       db.close()
@@ -19,7 +19,7 @@ genericDAO.prototype.deleteByParameter = (query, dbName, tableName) => {
   MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
     if (err) throw err
     const dbo = db.db(dbName)
-    dbo.collection(tableName).deleteOne(query, (err, result) => {
+    dbo.collection(tableName).deleteOne(query, (err, _) => {
       if (err) throw err
       console.log('Generic delete Success')
       db.close()
@@ -31,7 +31,7 @@ genericDAO.prototype.update = (query, newValues, dbName, tableName) => {
   MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
     if (err) throw err
     const dbo = db.db(dbName)
-    dbo.collection(tableName).updateOne(query, newValues, (err, result) => {
+    dbo.collection(tableName).updateOne(query, newValues, (err, _) => {
       if (err) throw err
       console.log('Generic update Success')
       db.close()
