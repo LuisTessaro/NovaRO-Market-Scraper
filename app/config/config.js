@@ -9,6 +9,6 @@ module.exports = function () {
     .include('infra')
     .then('routes')
     .into(bot)
-
+    
   return bot
 }
