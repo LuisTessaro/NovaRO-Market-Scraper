@@ -5,7 +5,7 @@ module.exports = function (bot) {
 
   bot.on(['/start', '/hello'], msg =>
     msg.reply.text('Favor não tentar quebrar o meu bot, usem à vontade.\n' +
-    '/lowestPrice "id do item"\n/addItem "id do item" "preço minimo pra te avisar"\n/cancel "id do item"')
+      '/lowestPrice "id do item"\n/addItem "id do item" "preço minimo pra te avisar"\n/cancel "id do item"')
   )
 
   bot.on(/^\/addItem (.+)$/, (msg, props) => {
@@ -15,8 +15,10 @@ module.exports = function (bot) {
     const playerPrice = item[1]
 
     itemFunctions.handleItemExists(itemId)
-      .then(item => {
-        return bot.sendMessage(msg.from.id, item.itemName + ' já existe')
+      .then(item => {//adciona o player ao item
+        console.log(item)
+        itemFunctions.addPlayerToItem(itemId, { playerId: msg.from.id, intendedPrice: playerPrice })
+        return bot.sendMessage(msg.from.id, item.itemName + ' menor que ' + playerPrice)
       })
       .catch(_ => {//adicionar item ao db
         getItemInfos(itemId)
@@ -31,12 +33,23 @@ module.exports = function (bot) {
               price: item.price,
               buildPage: item.buildPage,
             })
+            return bot.sendMessage(msg.from.id, 'Item Adicionado!')
           })
           .catch(_ => bot.sendMessage(msg.from.id, 'Id errado (ou não tem nenhum no market)'))
       })
   })
 
-  bot.on(/^\/deleteItem (.+)$/, (msg, props) => {
+  bot.on(/^\/cancel (.+)$/, (msg, props) => {
+    const itemId = props.match[1];
+
+    itemFunctions.handleItemExists(itemId)
+      .then(item => {//adciona o player ao item
+        itemFunctions.removePlayerFromItem(itemId, { playerId: msg.from.id })
+      })
+      .catch(_ => bot.sendMessage(msg.from.id, 'Id errado (ou não tem nenhum no market)'))
+  })
+
+  bot.on(/^\/deleteItem (.+)$/, (_, props) => {
     itemFunctions.deleteItem(props.match[1])
   })
 
